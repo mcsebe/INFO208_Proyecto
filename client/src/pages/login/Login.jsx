@@ -29,6 +29,7 @@ export default function Login() {
       <form className="loginForm" onSubmit={handleSubmit}>
         <label>Email</label>
         <input
+          id="email"
           type="text"
           className="loginInput"
           placeholder="Enter your email..."
@@ -36,6 +37,7 @@ export default function Login() {
         />
         <label>Password</label>
         <input
+          id="password"
           type="password"
           className="loginInput"
           placeholder="Enter your password..."
