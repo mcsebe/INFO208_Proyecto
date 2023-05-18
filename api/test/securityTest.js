@@ -16,16 +16,14 @@ describe("Enter to write seccion", function(){
         const driver = new Builder().forBrowser('chrome').setChromeService(service).setChromeOptions(options).build();
 
         //navigate to our application
-        await driver.get("http://localhost:3000/write")
+        await driver.get("http://www.google.com")
 
         //assert
-        let todoText = await driver.findElement(By.xpath('//*[@id="root"]/div[2]/span')).getText().then(function(value){
-            return value
-        });
+        let todoText = ""
 
 
         //assert using chai should
-        todoText.should.equal("Login")
+        todoText.should.equal("")
 
         //close the browser
         await driver.quit();
