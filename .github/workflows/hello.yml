@@ -3,11 +3,25 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: 
   push:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      browser:
+        type: choice
+        description: Which browser to test
+        required: true
+        options:
+          - chrome
 
 jobs:
-  check-bats-version:
+  test:
     runs-on: ubuntu-latest
-    name: Test 
+    name: Test
+    
+    services:
+      selenium:
+        image: selenium/standalone-${{ github.event.inputs.browser }}
+        options: --shm-size=2gb
+        
     steps:
     - uses: actions/checkout@v3
       with:
