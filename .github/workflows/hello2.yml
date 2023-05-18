@@ -1,0 +1,42 @@
+name: GitHub Actions Demo
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: 
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      browser:
+        type: choice
+        description: Which browser to test
+        required: true
+        options:
+          - chrome
+
+jobs:
+  test:
+    runs-on: windows-latest
+    name: Test
+
+    env:
+      CLIENT_IP: 0.0.0.0
+      CLIENT_PORT: 3000
+        
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+    
+    - name: Build and test client
+      working-directory: client
+      run: |
+        npm install
+        REACT_APP_API_URL=${{ CLIENT_IP: }} REACT_APP_API_PORT=${{CLIENT_PORT}} npm start &
+    - name: Build and test API
+      working-directory: api
+      run: |
+        npm install
+        npm start &
+        npm test
