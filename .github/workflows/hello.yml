@@ -29,7 +29,6 @@ jobs:
       working-directory: client
       run: |
         npm install
-        npm start &
     - name: Build and test API
       working-directory: api
       run: |
