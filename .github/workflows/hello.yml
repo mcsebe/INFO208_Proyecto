@@ -14,6 +14,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
+          
+      - name: Install Chrome
+        uses: logikal-io/install-chrome@v1.0.1
+
       - name: Build and test API
         working-directory: api
         run: |
