@@ -35,5 +35,5 @@ jobs:
         sudo chmod -R 777 ./
         npm install
         npm start &
-        google-chrome --version
+        google-chrome --version 
         npm test
