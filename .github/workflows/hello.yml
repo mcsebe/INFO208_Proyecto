@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Test
         
     steps:
@@ -29,10 +29,10 @@ jobs:
       working-directory: client
       run: |
         npm install
+        npm start &
     - name: Build and test API
       working-directory: api
       run: |
-        sudo chmod -R 777 ./
         npm install
         npm start &
         google-chrome --version 
