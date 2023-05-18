@@ -23,7 +23,6 @@ jobs:
     - name: Build and test API
       working-directory: api
       run: |
-        chmod -R a+rwx chromedriver.exe
         npm install
         npm start &
         npm test
