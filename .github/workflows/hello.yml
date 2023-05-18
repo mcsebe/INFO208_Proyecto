@@ -16,11 +16,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     name: Test
-    
-    services:
-      selenium:
-        image: selenium/standalone-${{ github.event.inputs.browser }}
-        options: --shm-size=2gb
         
     steps:
     - uses: actions/checkout@v3
@@ -37,6 +32,7 @@ jobs:
     - name: Build and test API
       working-directory: api
       run: |
+        sudo chmod -R 777 ./
         npm install
         npm start &
         npm test
