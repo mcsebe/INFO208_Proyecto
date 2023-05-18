@@ -14,7 +14,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-
+      - name: Build and test client
+        working-directory: client
+        run: |
+          npm install
       - name: Build and test API
         working-directory: api
         run: |
@@ -24,8 +27,3 @@ jobs:
           sleep 10
   
           npm test
-  
-      - name: Build and test client
-        working-directory: client
-        run: |
-            npm install
