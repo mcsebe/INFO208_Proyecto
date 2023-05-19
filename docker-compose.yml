@@ -1,0 +1,32 @@
+version: '3'
+services:
+  chrome:
+    image: selenium/standalone-chrome
+    shm_size: '2gb'
+    ports:
+      - 4444:4444 # Selenium service
+      - 5900:5900 # VNC server
+      - 7900:7900 # VNC browser client
+  frontend:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    ports:
+      - 3000:3000
+    depends_on: 
+      - backend
+    networks:
+      - proj_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - 5000:5000
+    networks:
+      - proj_network
+
+networks:
+    proj_network:
+        name: proj_network
