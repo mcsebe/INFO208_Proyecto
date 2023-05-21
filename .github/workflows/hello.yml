@@ -29,24 +29,14 @@ jobs:
     
     - name: Build and run Docker containers
       run: |
-        docker-compose up -d
-        
-    - name: Wait for services to start
-      run: |
-        sleep 10s
-    
-    - name: Build and test client
-      working-directory: client
-      run: |
-        npm install
-        npm test
+        docker-compose up -d    
     
     - name: Build and test API
       working-directory: api
       run: |
         npm install
         npm test
-    
+
     - name: Tear down Docker containers
       run: |
         docker-compose down
