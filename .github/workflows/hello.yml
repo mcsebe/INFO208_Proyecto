@@ -26,10 +26,6 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Set up Docker Compose
-      run: |
-        choco install docker-compose
-    
     - name: Build and run Docker containers
       run: |
         docker-compose up -d    
