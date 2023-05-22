@@ -40,8 +40,6 @@ jobs:
       working-directory: api
       run: |
         chmod -R 777 test/chromedriver.exe
-        npm install
-        npm install -g chromedriver
         npm test
 
     - name: Tear down Docker containers
