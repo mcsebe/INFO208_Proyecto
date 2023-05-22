@@ -15,20 +15,35 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Action Test
+    name: Test
+        
     steps:
-        - uses: actions/checkout@v1
-        - uses: testingbot/testingbot-tunnel-action@v1.1.0
-          with:
-            key: ${{ secrets.TB_KEY }}
-            secret: ${{ secrets.TB_SECRET }}
-            tunnelIdentifier: github-action-tunnel
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
 
-        - name: "Install Dependencies"
-          run: npm install
+    - name: Set up Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+    
+    - name: Build and run Docker containers
+      run: |
+        docker-compose up -d    
+    
+    - name: Build and test API
+      working-directory: api
+      run: |
+        chmod -R 777 test/chromedriver.exe
+        npm install
+        npm install -g chromedriver
+        npm test
 
-        - name: "Run Test"
-          run: npm run test
-          env:
-            TB_KEY: ${{ secrets.TB_KEY }}
-            TB_SECRET: ${{ secrets.TB_SECRET }}
+    - name: Tear down Docker containers
+      run: |
+        docker-compose down

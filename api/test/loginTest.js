@@ -2,20 +2,6 @@ const {By, Key, Builder, until} = require('selenium-webdriver');
 var should = require("chai").should();
 let chrome = require('selenium-webdriver/chrome');
 const path = require('path');
-const webdriver = require('selenium-webdriver');
-const fs = require('fs')
-
-const testingbotKey = process.env.TB_KEY;
-const testingbotSecret = process.env.TB_SECRET;
-
-const capabilities = {
-    'browserName': 'firefox',
-    'platform': 'WIN10',
-    'version': 'latest',
-    'client_key': testingbotKey,
-    'client_secret': testingbotSecret,
-    'name': 'GitHub Action Test'
-};
 // describe block
 describe("Login to page", function(){
 
@@ -24,10 +10,9 @@ describe("Login to page", function(){
 
         //launch the browser
 
-        let driver = new webdriver.Builder()
-        .usingServer('https://' + testingbotKey + ':' + testingbotSecret + '@hub.testingbot.com/wd/hub')
-        .withCapabilities(capabilities)
-        .build();
+        const service = new chrome.ServiceBuilder(path.resolve(__dirname, './chromedriver.exe'));
+        const options = new chrome.Options();
+        const driver = new Builder().forBrowser('chrome').setChromeService(service).setChromeOptions(options).build();
 
         //navigate to our application
         await driver.get("http://localhost:3000/login")
