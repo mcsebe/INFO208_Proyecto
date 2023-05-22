@@ -22,6 +22,11 @@ jobs:
       with:
         fetch-depth: 0
     
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
     - name: Set up Docker Compose
       run: |
         sudo apt-get update
@@ -34,7 +39,6 @@ jobs:
     - name: Build and test API
       working-directory: api
       run: |
-        chmod -R 777 test/chromedriver.exe
         npm install
         npm test
 
