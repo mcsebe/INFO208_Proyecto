@@ -14,7 +14,10 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 5
     name: Test
         
     steps:
@@ -27,27 +30,15 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Set up Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
-    
-    - name: Build and run Docker containers
-      run: |
-        docker-compose up -d    
-    
     - name: Build and test API
-      working-directory: api
       run: |
-        sudo apt-get install xvfb
-        sudo apt-get -y install google-chrome-stable
-        google-chrome --product-version
-        chmod -R 777 test/chromedriver.exe
+        cd client
         npm install
-        npm install -g chromedriver
-        npm install selenium-webdriver
+        npm start &
+        sleep 5
+        cd ..
+        cd api
+        npm install
+        npm start &
+        sleep 5
         npm test
-
-    - name: Tear down Docker containers
-      run: |
-        docker-compose down
