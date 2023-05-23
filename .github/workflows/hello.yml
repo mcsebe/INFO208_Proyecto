@@ -39,6 +39,8 @@ jobs:
     - name: Build and test API
       working-directory: api
       run: |
+        sudo apt-get install xvfb
+        sudo apt-get -y install google-chrome-stable
         google-chrome --product-version
         chmod -R 777 test/chromedriver.exe
         npm install
