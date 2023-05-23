@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     name: Test
         
     steps:
@@ -27,23 +27,27 @@ jobs:
       with:
         node-version: '16'
 
-    - name: Set up Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
+    # - name: Set up Docker Compose
+    #   run: |
+    #     sudo apt-get update
+    #     sudo apt-get install -y docker-compose
     
-    - name: Build and run Docker containers
+    # - name: Build and run Docker containers
+    #   run: |
+    #     docker-compose up -d    
+    - name: Build Client
+      working-directory: client
       run: |
-        docker-compose up -d    
-    
+        npm install
+        npm start &
     - name: Build and test API
       working-directory: api
       run: |
-        chmod -R 777 test/chromedriver.exe
+
         npm install
         npm install -g chromedriver
         npm test
 
-    - name: Tear down Docker containers
-      run: |
-        docker-compose down
+    # - name: Tear down Docker containers
+    #   run: |
+    #     docker-compose down
