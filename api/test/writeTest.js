@@ -11,9 +11,16 @@ describe("Login to page", function(){
 
         //launch the browser
 
-        const service = new chrome.ServiceBuilder(path.resolve(__dirname, './chromedriver.exe'));
-        const options = new chrome.Options();
-        const driver = new Builder().forBrowser('chrome').setChromeService(service).setChromeOptions(options).build();
+        const chrome = require('selenium-webdriver/chrome')
+        const options = new chrome.Options()
+      
+        options.addArguments('--disable-dev-shm-usage')
+        options.addArguments('--no-sandbox')
+      
+        const driver = new Builder()
+          .forBrowser('chrome')
+          .setChromeOptions(options)
+          .build()
 
         //navigate to our application
         await driver.get("http://localhost:3000/login")
