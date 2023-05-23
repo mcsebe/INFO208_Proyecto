@@ -11,12 +11,12 @@ describe("Enter to write seccion", function(){
 
         //launch the browser
         
-        const service = new chrome.ServiceBuilder(path.resolve(__dirname, './chromedriver.exe'));
-        const options = new chrome.Options();
-        const driver = new Builder().forBrowser('chrome').setChromeService(service).setChromeOptions(options).build();
+        // const service = new chrome.ServiceBuilder(path.resolve(__dirname, './chromedriver.exe'));
+        // const options = new chrome.Options();
+        // const driver = new Builder().forBrowser('chrome').setChromeService(service).setChromeOptions(options).build();
 
-        //navigate to our application
-        await driver.get("http://www.google.com")
+        // //navigate to our application
+        // await driver.get("http://www.google.com")
 
         //assert
         let todoText = "Login";
