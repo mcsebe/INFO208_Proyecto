@@ -9,6 +9,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
 
+/**
+ * Se carga App Front.
+ */
+
 function App() {
   const { user } = useContext(Context);
   return (
